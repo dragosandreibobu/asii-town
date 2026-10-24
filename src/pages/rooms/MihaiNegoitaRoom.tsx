@@ -8,21 +8,21 @@ const QUESTIONS = [
   { question: 'Unde se pot nota rapid idei pentru ilustrații?', answers: ['Pe un caiet de schițe', 'Pe un disc vinil', 'Pe o planetă'], correct: 0 }
 ];
 
-// WORKSHOP: /rooms/daria. Independent multiple-choice game.
-export default function DariaRoom() {
+// WORKSHOP: /rooms/mihai-negoita. Independent multiple-choice game.
+export default function MihaiNegoitaRoom() {
   const { win } = useGame();
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [feedback, setFeedback] = useState('');
   function check() {
-    if (QUESTIONS.every((q, index) => answers[index] === q.correct)) win('daria');
+    if (QUESTIONS.every((q, index) => answers[index] === q.correct)) win('mihai-negoita');
     else setFeedback('Unele răspunsuri sunt incorecte. Inspectează obiectele din studio.');
   }
-  return <RoomShell member="daria">
+  return <RoomShell member="mihai-negoita">
     <p>Răspunde la trei întrebări despre instrumentele folosite în studioul creativ.</p>
     {QUESTIONS.map((q, i) => <fieldset className="quiz-field" key={q.question}>
       <legend>{i + 1}. {q.question}</legend>
       {q.answers.map((answer, j) => <label key={answer}>
-        <input type="radio" name={'daria-' + i} checked={answers[i] === j}
+        <input type="radio" name={'mihai-negoita-' + i} checked={answers[i] === j}
           onChange={() => { setAnswers(a => ({ ...a, [i]: j })); setFeedback(''); }} /> {answer}
       </label>)}
     </fieldset>)}

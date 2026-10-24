@@ -53,9 +53,16 @@ export default function TrapHouse() {
           {solved ? <div className="success">✓ Rezolvată</div>
             : <form className="challenge-form" onSubmit={event => submit(event, p.id)}>
               <label htmlFor={'answer-' + p.id}>Răspuns</label>
-              <input id={'answer-' + p.id} value={inputs[p.id] || ''}
+              {p.type === 'choice' && p.options ? <div className="trap-choices" role="radiogroup" aria-label={p.prompt}>
+                {p.options.map(option => <label key={option}>
+                  <input type="radio" name={'answer-' + p.id} value={option} required checked={inputs[p.id] === option}
+                    onChange={() => { setInputs(v => ({ ...v, [p.id]: option })); setErrors(e => ({ ...e, [p.id]: '' })); }} />
+                  {option}
+                </label>)}
+              </div> : <input id={'answer-' + p.id} value={inputs[p.id] || ''}
                 onChange={event => { setInputs(v => ({ ...v, [p.id]: event.target.value })); setErrors(e => ({ ...e, [p.id]: '' })); }}
-                placeholder="Scrie codul" autoComplete="off" required />
+                placeholder={p.type === 'riddle' ? 'Soluția ghicitorii' : 'Scrie codul'}
+                autoComplete="off" required />}
               <button className="button" type="submit">Verifică</button>
             </form>}
           {errors[p.id] && !solved && <p className="error" role="alert">{errors[p.id]}</p>}

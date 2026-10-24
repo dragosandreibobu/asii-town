@@ -13,13 +13,14 @@ const decorations = [
 export default function Town() {
   const { state, enterTrap, reset } = useGame();
   const [decor, setDecor] = useState<(typeof decorations)[number] | null>(null);
+  const [easterEgg, setEasterEgg] = useState(false);
   const navigate = useNavigate();
   const secretReady = canOpenSecret(state);
   const trapReady = canEnterTrap(state);
   return <div className="page">
     <div className="eyebrow">PROIECT INTRODUCTIV · ECHIPA 4</div>
     <h1>Bine ai venit în <em>ASII Town.</em></h1>
-    <p className="lead">Un oraș mic, patru povești diferite și un mister de rezolvat împreună. Vizitează fiecare casă, strânge fragmente și descoperă camera secretă.</p>
+    <p className="lead">Un oraș mic, cinci povești diferite și un mister de rezolvat împreună. Vizitează fiecare casă, strânge fragmente și descoperă camera secretă.</p>
     <div className="hero-stats">
       <span>⌂ {MEMBER_IDS.length} camere personale</span>
       <span>◇ 1 capcană comună</span>
@@ -27,6 +28,7 @@ export default function Town() {
     </div>
     <div className="town-scene" aria-label="Harta orașului">
       <div className="town-sky"><span>✦</span><span>☁</span><span>✦</span></div>
+      <button type="button" className="easter-egg" aria-label="Stea misterioasă" title="Ce ascunde steaua?" onClick={() => setEasterEgg(true)}>✧</button>
       <div className="town-road" />
       <div className="town-houses">
         {MEMBER_IDS.map((id, i) => <Link className={'house house-' + (i + 1)} style={{ '--house-accent': ROOMS[id].accent } as React.CSSProperties} to={'/rooms/' + id} key={id}>
@@ -39,10 +41,10 @@ export default function Town() {
     <div className="feature-grid">
       <article className="feature-card">
         <span className="feature-icon">⚿</span><div className="eyebrow">CASĂ COMUNĂ</div><h3>Casa Capcană</h3>
-        <p>Cinci enigme, indicii din camerele colegilor și maximum trei ajutoare. Ușa se încuie până rezolvi tot.</p>
+        <p>Șase enigme, indicii din camerele colegilor și maximum trei ajutoare. Ușa se încuie până rezolvi tot.</p>
         <button className="button" type="button" disabled={!trapReady}
           onClick={() => { enterTrap(); navigate('/trap'); }}>
-          {trapReady ? 'Intră în capcană →' : 'Completează întâi cele 4 jocuri'}
+          {trapReady ? 'Intră în capcană →' : 'Completează întâi toate jocurile'}
         </button>
       </article>
       <article className="feature-card">
@@ -58,6 +60,7 @@ export default function Town() {
       </button>)}
     </div>
     <div className="reset-bar"><span>Vrei să reîncepi demonstrația?</span><button type="button" className="text-button" onClick={() => { if (window.confirm('Ștergi progresul local al jocului?')) reset(); }}>Resetează progresul</button></div>
+    {easterEgg && <Modal title="Secretul stelei" onClose={() => setEasterEgg(false)}><p>Ai găsit steaua ascunsă în oraș. Indiciu: răspunsul pentru Seiful lunar apare pe o hartă a constelațiilor.</p><button className="button" onClick={() => setEasterEgg(false)}>Continuă explorarea</button></Modal>}
     {decor && <Modal title={decor.title} onClose={() => setDecor(null)}><p>{decor.message}</p><button className="button" onClick={() => setDecor(null)}>Înapoi la explorare</button></Modal>}
   </div>;
 }

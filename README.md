@@ -1,48 +1,49 @@
-# ASII Town — Team 4
+# ASII Town — Echipa 4
 
-Interactive town for the ASII IT introductory project, implemented in **React + TypeScript + Vite**.
+Proiect introductiv IT: oraș explorabil cu **5 case personale**, mini-jocuri distincte, inventar, Casa Capcană, Camera Secretă și progres.
 
-**Requirements:** https://docs.google.com/document/d/1zubjC6SXTaaYIEL7s7hmqYgRFfsXWqRA6iLFn-r9Fns/mobilebasic
+**Cerințe oficiale:** https://docs.google.com/document/d/1zubjC6SXTaaYIEL7s7hmqYgRFfsXWqRA6iLFn-r9Fns/mobilebasic
 
-> All names, personal details, room puzzles and final quiz content are **fictional placeholders**. Replace these with the real team members' names and approved public details. Do not add private data to this public GitHub repository.
+**Tehnologii:** React 19, TypeScript, Vite, React Router, Vitest. Aplicația nu necesită backend pentru demonstrația locală.
 
-## Getting started
+## Instalare
 
-You need Node.js 20.19+ or Node.js 22+.
+Node.js 20.19+ sau 22.12+:
 
 ```bash
 git clone https://github.com/dragosandreibobu/asii-town.git
 cd asii-town
-npm install
+npm ci
 npm run dev
 ```
 
-Open http://localhost:5173. Direct links to teammate rooms:
+Site local: http://localhost:5173
 
-| Page | URL | Source file |
+## Fiecare coleg are o pagină și un fișier distinct
+
+| Membru | URL | Componentă |
 | --- | --- | --- |
-| Demo Alex | /rooms/alex | src/pages/rooms/AlexRoom.tsx |
-| Demo Mara | /rooms/mara | src/pages/rooms/MaraRoom.tsx |
-| Demo Teo | /rooms/teo | src/pages/rooms/TeoRoom.tsx |
-| Demo Daria | /rooms/daria | src/pages/rooms/DariaRoom.tsx |
-| Town | / | src/pages/Town.tsx |
-| Trap House | /trap | src/pages/TrapHouse.tsx |
-| Secret Room | /secret | src/pages/SecretRoom.tsx |
+| Andrei Irimia | `/rooms/andrei-irimia` | `src/pages/rooms/AndreiIrimiaRoom.tsx` |
+| Andrei Lachovici | `/rooms/andrei-lachovici` | `src/pages/rooms/AndreiLachoviciRoom.tsx` |
+| Giusepe Spataru | `/rooms/giusepe-spataru` | `src/pages/rooms/GiusepeSpataruRoom.tsx` |
+| Mihai Negoita | `/rooms/mihai-negoita` | `src/pages/rooms/MihaiNegoitaRoom.tsx` |
+| Dragoș Bobu | `/rooms/dragos-bobu` | `src/pages/rooms/DragosBobuRoom.tsx` |
+| Oraș | `/` | `src/pages/Town.tsx` |
+| Casa Capcană | `/trap` | `src/pages/TrapHouse.tsx` |
+| Camera Secretă | `/secret` | `src/pages/SecretRoom.tsx` |
 
-Each teammate owns one room component and its personal data in `src/game/data.ts`. Avoid editing routing or the shared game context independently; ask the integrator first.
+**Only the names above are genuine.** Every hobby, object, quote, answer, room theme, and puzzle is **example data**, not a description of a real teammate. Instagram handles supplied for identification are not GitHub usernames; none has been assumed.
 
-## How to personalize your room
+## Cum lucrezi la propria cameră
 
-1. Choose your route/room file (for example `src/pages/rooms/AlexRoom.tsx`).
-2. Change the mini-game inside that file. Win by calling `win('alex')` with the correct member ID.
-3. Ask the integrator to change your member display name, room objects, painting, color and reward in `src/game/data.ts`. Keep **at least five interactive objects** and one modal object.
-4. Coordinate the trap puzzle clue hidden in your room with the person who owns the matching puzzle. Each mini-game must be a **different type**; at least one must be an input/password game.
-5. Make sure each room has two interactive personalization features (shared `RoomShell` already offers UV lighting, moving the rug, modal inspection and message popups).
-6. Everyone contributes **at least two objects/quotes** to the final quiz, whose data lives in `src/game/data.ts`.
+1. Deschide componenta ta din `src/pages/rooms/`. Poți modifica liber mecanica mini-jocului acolo.
+2. Camera ta este în datele comune `src/game/data.ts`: obiecte, indicii, citat de pe tablou, culoare, recompensă. Coordonează editările din acest fișier cu integratorul ca să evitați conflictele.
+3. `RoomShell` furnizează 5 obiecte interactive, UV, covor deplasabil, modal, mesaje, inventar, navigare și afișaj de joc; nu trebuie să rescrii elementele comune.
+4. La victoria reală în mini-joc, apelează `win('slug-ul-tau')` din `useGame()`.
+5. Indiciile nu spun numele persoanei și nu folosesc formularea la persoana I. Pune cel puțin un indiciu care ajută un puzzle al altui coleg.
+6. Transmite câte minimum două obiecte/replici pentru finalul din `FINAL_QUESTIONS`.
 
-The room shell provides a shared layout, navigation, inventory collection, UV light, a movable rug, and a modal, so your task is **only the contents of your own room**.
-
-Example mini-game:
+Exemplu de structură:
 
 ```tsx
 import { RoomShell } from '../../components/RoomShell';
@@ -50,41 +51,38 @@ import { useGame } from '../../game/GameContext';
 
 export default function MyRoom() {
   const { win } = useGame();
-  return (
-    <RoomShell member="alex">
-      <button onClick={() => win('alex')}>Replace with your real game's victory condition</button>
-    </RoomShell>
-  );
+  // Implement your own victory condition. Do not ship an instant-win button.
+  return <RoomShell member="andrei-irimia">
+    {/* Render your own minigame; call win('andrei-irimia') upon success. */}
+  </RoomShell>;
 }
 ```
 
-Do not ship a win button as the final puzzle; it is just an illustration of the API.
+## Git workflow
 
-## How to work with GitHub
+Câte un branch pe membru, fără editări directe pe `main`:
 
 ```bash
-git checkout -b feature/room-alex
-# Make edits to your own room file.
-git add src/pages/rooms/AlexRoom.tsx
-git commit -m "Create Alex's room"
-git push -u origin feature/room-alex
+git checkout -b feature/room-andrei-irimia
+# Editează src/pages/rooms/AndreiIrimiaRoom.tsx
+git add src/pages/rooms/AndreiIrimiaRoom.tsx
+git commit -m "Personalize Andrei Irimia room"
+git push -u origin feature/room-andrei-irimia
 ```
 
-Then create a pull request against `main`. The integrator reviews and merges it. Other members should use their own distinct branch.
+Deschide un Pull Request către `main`; integratorul rezolvă modificările asupra `src/game/data.ts`. Acesta conține date partajate, inclusiv întrebările și puzzle-urile.
 
-## Game rules
+## Stare de implementare (24 octombrie 2026)
 
-- The town contains four personal houses, the shared Trap House, locked Secret Room, and two decorative houses (one provides a real clue).
-- One personal mini-game in each house. Winning marks progress once and awards one fragment.
-- Collectible objects disappear from the room and appear in the shared, selectable inventory.
-- The Trap House has five puzzles: four clues from other members' rooms and one team-wide agreed answer. Any puzzle order; all must be solved to leave. Three hints maximum.
-- To prevent a soft lock, all personal games must be completed **before entering** the Trap House. This preparation requirement is an implementation choice and can be relaxed after adding an alternative recovery mechanism.
-- The Secret Room unlocks only after all games and successful trap escape. Eight questions ask which member owns each quote/object; final explanations and a group profile are shown.
-- Progress can be saved to `localStorage`, and a day/night toggle is included.
+**Bază funcțională implementată:** cele cinci rute personale; harta orașului; două case de decor (una cu indiciu); câte cinci obiecte interactive în fiecare cameră; modale; lumina UV; mutarea covorului; cinci mini-jocuri prototip diferite; inventar global colectabil/selectabil; progres; comutator zi/noapte; Casa Capcană cu șase enigme, răspunsuri între camere, fragment final, limită de trei indicii; Camera Secretă cu zece întrebări, scor, explicații și profil de grup provizoriu. Stare salvată automat în `localStorage`. Animație simplă de intrare în pagină.
 
-**Important limitations:** Browser storage is local to each user, not collaborative or secure. A password embedded in frontend code is inspectable. There is currently no authentication, multi-user live game, or backend.
+**Necesită încă dezvoltare și verificare:** mecanici semnificativ distincte și mai elaborate în Casa Capcană (actualmente coduri, ghicitori introduse ca text și selecție multiplă); decor specific/obiecte inspectabile în Casa Capcană; conținut personal *real* și consens asupra motto-ului; verificarea relațiilor obiect–puzzle; testare cap-coadă în browser, accesibilitate și compatibilitate mobilă. Cele 12 teste actuale sunt teste automate pentru logica jocului, **nu** substituie testarea manuală end-to-end.
 
-## Build and test
+**Bonusuri prototip implementate:** salvare în localStorage, cronometru opțional de 20 minute (persistă la refresh; Game Over dacă nu se deblochează Camera Secretă), muzică generată local prin Web Audio și un sunet simplu la victorie, Easter egg ascuns în oraș, animație de intrare în pagină. Alte tranziții, efecte sonore specifice fiecărui mini-joc și muzică personalizată pot fi extinse. Schimbul de teste între echipe este o activitate manuală care **nu a avut loc**.
+
+**Decizie tehnică pentru evitarea soft-lockului:** jucătorul poate intra în Casa Capcană numai după victoria în toate cele cinci mini-jocuri. Aceasta este o restricție suplimentară a prototipului, nu cerință explicită din document.
+
+## Comenzi de verificare
 
 ```bash
 npm test
@@ -92,8 +90,14 @@ npm run build
 npm run preview
 ```
 
-For production with clean URL paths (e.g. `/rooms/alex`) the host must rewrite unknown paths to `index.html`. Vercel and Netlify rewrites are configured in this project. A static Vite dev server already supports them.
+GitHub Actions execută testele și build-ul la push și pull request.
 
-## Team integration decisions
+Căile individuale `/rooms/...` merg în Vite. Pe calculatorul integratorului repo-ul se află la `/home/admin/Projects/ASII/asii-town/`. Pentru hosting static separat este necesar fallback SPA către `index.html`; proiectul include reguli pentru Vercel/Netlify. Proiectul **nu este încă publicat ca website**.
 
-At the kickoff, replace the demo member names and slugs, decide whether there are four or five participants, and define the approved shared team motto and cross-room hints. Then confirm the project theme, game types, and ownership of shared files.
+## Decizii pentru kickoff
+
+- Repartizați mecanicile finale ale mini-jocurilor și ale enigmelor din capcană.
+- Înlocuiți toate indiciile fictive, fără a publica date personale neaprobate.
+- Agreați motto-ul comun și profilul de grup.
+- Planificați bonusurile și testarea între echipe.
+- Adăugați colaboratorii GitHub numai după obținerea username-urilor corecte.

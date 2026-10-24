@@ -10,6 +10,7 @@ export type GameState = {
   trapEscaped: boolean;
   hintUses: number;
   night: boolean;
+  timerDeadline: number | null;
   finalAnswers: Record<string, MemberId>;
 };
 
@@ -23,6 +24,7 @@ export const INITIAL_STATE: GameState = {
   trapEscaped: false,
   hintUses: 0,
   night: false,
+  timerDeadline: null,
   finalAnswers: {}
 };
 

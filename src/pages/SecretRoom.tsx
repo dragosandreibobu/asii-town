@@ -17,7 +17,7 @@ export default function SecretRoom() {
   return <div className="page">
     <div className="eyebrow">CAMERA SECRETĂ · TEST FINAL</div>
     <h1>Cine deține indiciul?</h1>
-    <p className="lead">Opt obiecte sau replici, patru colegi. Folosește ceea ce ai descoperit în camere pentru a alege corect.</p>
+    <p className="lead">Zece obiecte sau replici, cinci colegi. Folosește ceea ce ai descoperit în camere pentru a alege corect.</p>
     <div className="final-grid">
       {FINAL_QUESTIONS.map((q, i) => <fieldset className="final-question" key={q.id} disabled={submitted}>
         <legend><span className="question-number">0{i + 1}</span> {q.clue}</legend>

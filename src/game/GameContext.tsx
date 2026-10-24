@@ -17,10 +17,11 @@ type GameAPI = {
   hint: () => boolean;
   setAnswer: (id: string, member: MemberId) => void;
   toggleNight: () => void;
+  startTimer: () => void;
   reset: () => void;
 };
 const GameContext = createContext<GameAPI | null>(null);
-const STORAGE = 'asii-town-progress-v1';
+const STORAGE = 'asii-town-progress-v2';
 
 function load(): GameState {
   try {
@@ -40,7 +41,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const api: GameAPI = {
     state,
     visit: id => setState(s => visitRoom(s, id)),
-    win: id => setState(s => winGame(s, id)),
+    win: id => { setState(s => winGame(s, id)); window.dispatchEvent(new Event('asii-town-win')); },
     collect: id => setState(s => collectItem(s, id)),
     selectItem: id => setState(s => ({ ...s, selectedItem: id })),
     enterTrap: () => setState(s => canEnterTrap(s) ? { ...s, trapEntered: true } : s),
@@ -58,6 +59,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     },
     setAnswer: (id, member) => setState(s => ({ ...s, finalAnswers: { ...s.finalAnswers, [id]: member } })),
     toggleNight: () => setState(s => ({ ...s, night: !s.night })),
+    startTimer: () => setState(s => s.timerDeadline ? s : ({ ...s, timerDeadline: Date.now() + 20 * 60 * 1000 })),
     reset: () => setState(INITIAL_STATE)
   };
   return <GameContext.Provider value={api}>{children}</GameContext.Provider>;

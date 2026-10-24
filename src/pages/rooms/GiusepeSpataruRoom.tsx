@@ -10,8 +10,8 @@ const EVENTS = {
 type EventId = keyof typeof EVENTS;
 const CORRECT: EventId[] = ['sketch', 'test', 'launch'];
 
-// WORKSHOP: /rooms/teo. Reorder the milestones with accessible buttons.
-export default function TeoRoom() {
+// WORKSHOP: /rooms/giusepe-spataru. Reorder the milestones with accessible buttons.
+export default function GiusepeSpataruRoom() {
   const { win } = useGame();
   const [order, setOrder] = useState<EventId[]>(['launch', 'sketch', 'test']);
   const [feedback, setFeedback] = useState('');
@@ -23,7 +23,7 @@ export default function TeoRoom() {
     setOrder(next);
     setFeedback('');
   }
-  return <RoomShell member="teo">
+  return <RoomShell member="giusepe-spataru">
     <p>O misiune spațială reușită urmează pașii în ordinea corectă. Mută etapele folosind săgețile.</p>
     <ol className="timeline">
       {order.map((id, i) => <li key={id}>
@@ -33,7 +33,7 @@ export default function TeoRoom() {
       </li>)}
     </ol>
     <button className="button" type="button" onClick={() => {
-      if (order.every((id, i) => id === CORRECT[i])) win('teo');
+      if (order.every((id, i) => id === CORRECT[i])) win('giusepe-spataru');
       else setFeedback('Ordinea nu este corectă. Încearcă din nou.');
     }}>Verifică ordinea</button>
     {feedback && <p role="alert" className="error">{feedback}</p>}

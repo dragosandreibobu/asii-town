@@ -4,11 +4,13 @@ import { useGame } from './game/GameContext';
 import { canOpenSecret } from './game/logic';
 import { Inventory } from './components/Inventory';
 import { ProgressTracker } from './components/ProgressTracker';
+import { BonusPanel } from './components/BonusPanel';
 import Town from './pages/Town';
-import AlexRoom from './pages/rooms/AlexRoom';
-import MaraRoom from './pages/rooms/MaraRoom';
-import TeoRoom from './pages/rooms/TeoRoom';
-import DariaRoom from './pages/rooms/DariaRoom';
+import AndreiIrimiaRoom from './pages/rooms/AndreiIrimiaRoom';
+import AndreiLachoviciRoom from './pages/rooms/AndreiLachoviciRoom';
+import GiusepeSpataruRoom from './pages/rooms/GiusepeSpataruRoom';
+import MihaiNegoitaRoom from './pages/rooms/MihaiNegoitaRoom';
+import DragosBobuRoom from './pages/rooms/DragosBobuRoom';
 import TrapHouse from './pages/TrapHouse';
 import SecretRoom from './pages/SecretRoom';
 
@@ -41,10 +43,11 @@ export default function App() {
       <main className="content">
         <Routes>
           <Route path="/" element={<Town />} />
-          <Route path="/rooms/alex" element={<AlexRoom />} />
-          <Route path="/rooms/mara" element={<MaraRoom />} />
-          <Route path="/rooms/teo" element={<TeoRoom />} />
-          <Route path="/rooms/daria" element={<DariaRoom />} />
+          <Route path="/rooms/andrei-irimia" element={<AndreiIrimiaRoom />} />
+          <Route path="/rooms/andrei-lachovici" element={<AndreiLachoviciRoom />} />
+          <Route path="/rooms/giusepe-spataru" element={<GiusepeSpataruRoom />} />
+          <Route path="/rooms/mihai-negoita" element={<MihaiNegoitaRoom />} />
+          <Route path="/rooms/dragos-bobu" element={<DragosBobuRoom />} />
           <Route path="/trap" element={<TrapHouse />} />
           <Route path="/secret" element={<SecretRoom />} />
           <Route path="*" element={<Navigate to="/" replace />} />
@@ -53,6 +56,7 @@ export default function App() {
       <aside className="sidebar" aria-label="Starea jocului">
         <ProgressTracker />
         <Inventory />
+        <BonusPanel />
         <p className="sidebar-note">DEMO: nume și obiecte fictive. Fiecare coleg își înlocuiește conținutul propriei camere.</p>
       </aside>
     </div>

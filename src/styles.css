@@ -93,3 +93,39 @@ p { line-height:1.6; } h2 { letter-spacing:-.025em; }
 @media(max-width:1100px) { .app-grid { grid-template-columns:minmax(0,1fr) 240px; padding-inline:18px; gap:20px; }.objects-grid { gap:5px; }.object-icon { font-size:2.1rem; } }
 @media(max-width:850px) { .app-grid { grid-template-columns:1fr; }.sidebar { position:static; grid-template-columns:repeat(2,minmax(0,1fr)); }.sidebar-note { grid-column:span 2; } }
 @media(max-width:600px) { .header-inner { padding:12px; }.site-header nav { order:3; width:100%; justify-content:space-between; }.site-header nav a { font-size:.75rem; padding:7px; }.feature-grid,.decor-grid,.puzzles-grid,.final-grid,.sidebar { grid-template-columns:1fr; }.sidebar-note { grid-column:auto; }.page-header { flex-direction:column; }.town-scene { height:248px; }.town-houses { inset:34px 4% 38px; gap:2px; }.house-roof { border-left-width:10vw; border-right-width:10vw; border-bottom-width:35px; }.house-building { width:92%; height:82px; }.house-door { width:22px; height:39px; }.house-window { top:10px; font-size:.5rem; }.house strong { font-size:.68rem; padding:3px 5px; }.house small { font-size:.52rem; }.objects-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }.game-section { padding:17px; }.feature-card p { min-height:auto; } }
+
+/* Five personal houses fit on the map while preserving large click targets. */
+.town-houses { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); align-items:end; gap:8px; }
+.house { width:100%; min-width:0; }
+.house-roof { width:100%; height:54px; border:0; background:var(--house-accent); clip-path:polygon(50% 0,100% 100%,0 100%); }
+.house-building { width:86%; }
+.sequence-puzzle { padding:15px; border:1px solid var(--line); border-radius:12px; margin:16px 0; font-size:1.25rem; font-weight:700; background:var(--ground); }
+.trap-choices { display:flex; gap:8px; flex-wrap:wrap; }
+.trap-choices label { width:auto; display:flex; gap:5px; align-items:center; padding:9px; border-radius:8px; border:1px solid var(--line); }
+@media (max-width:600px) {
+  .town-scene { height:375px; }
+  .town-houses { inset:18px 12px 32px; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px 10px; align-content:space-evenly; }
+  .house { width:100%; }
+  .house-roof { width:90%; height:38px; border:0; }
+  .house-building { width:82%; height:64px; }
+  .house strong { max-width:100%; overflow-wrap:anywhere; text-align:center; font-size:.58rem; line-height:1.05; }
+  .house small { font-size:.49rem; }
+  .town-road { height:18px; }
+}
+
+/* Optional challenges, generated background music and hidden city hint. */
+.bonus-actions { display:grid; gap:9px; }
+.bonus-clock { font-family:'Space Grotesk',sans-serif; font-size:1.7rem; font-weight:700; letter-spacing:.03em; padding:8px 0; font-variant-numeric:tabular-nums; }
+.bonus-panel button { width:100%; }
+.easter-egg { position:absolute; z-index:5; top:7%; left:13%; color:#fff8bd; background:transparent; border:0; padding:4px; font-size:1.1rem; transform:rotate(20deg); opacity:.5; }
+.easter-egg:hover,.easter-egg:focus-visible { opacity:1; transform:rotate(65deg) scale(1.5); }
+.gameover-modal { text-align:center; }
+.gameover-modal h2 { font-size:2.1rem; }
+
+.modal { animation:modal-entry .22s ease-out; }
+@keyframes modal-entry { from {opacity:0;transform:scale(.96) translateY(10px)} to {opacity:1;transform:scale(1) translateY(0)} }
+.rug-clue,.hint,.success { animation:reveal .25s ease-out; }
+@keyframes reveal { from {opacity:0;filter:blur(4px)} to {opacity:1;filter:blur(0)} }
+@media (prefers-reduced-motion:reduce) {
+ *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+}
